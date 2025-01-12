@@ -63,5 +63,23 @@ namespace RefactoredSlotMachine
                 DisplayMessage("Invalid input. Please enter a positive number less than or equal to the maximum amount.");
             }
         }
+
+        public static int GetChoice()
+        {
+            DisplayMessage("Choose a line to play: ");
+            DisplayMessage($"{Constants.CHOICE_CENTER}: Center Line");
+            DisplayMessage($"{Constants.CHOICE_ALL_HORIZONTAL}: All Horizontal Lines");
+            DisplayMessage($"{Constants.CHOICE_ALL_VERTICAL}: All Vertical Lines");
+            DisplayMessage($"{Constants.CHOICE_DIAGONAL}: Diagonals");
+            DisplayMessage($"{Constants.CHOICE_ALL_LINES}: All Lines");
+
+            while (true)
+            {
+                if (int.TryParse(ReadInput(), out int choice) && choice >= Constants.CHOICE_CENTER && choice <= Constants.CHOICE_ALL_LINES)
+                {
+                    return choice;
+                }
+                DisplayMessage($"Invalid option. Please select an option between {Constants.CHOICE_CENTER} and {Constants.CHOICE_ALL_LINES}")
+            }
     }
 }

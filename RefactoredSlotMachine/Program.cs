@@ -14,6 +14,10 @@
                 int wager = UI.GetWager(playMoney);
 
                 int gridSize = UI.GetGridSize(Constants.GRID_SIZE_DEFAULT);
+
+                int[,] grid = Logic.GenerateGrid(gridSize);
+                UI.DisplayMessage("Loading Slot Machine...");
+                UI.DisplayGrid(grid);
             }
         }
     }
