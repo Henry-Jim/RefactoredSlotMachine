@@ -79,7 +79,8 @@ namespace RefactoredSlotMachine
                 {
                     return choice;
                 }
-                DisplayMessage($"Invalid option. Please select an option between {Constants.CHOICE_CENTER} and {Constants.CHOICE_ALL_LINES}")
+                DisplayMessage($"Invalid option. Please select an option between {Constants.CHOICE_CENTER} and {Constants.CHOICE_ALL_LINES}");
             }
+        }
     }
 }
