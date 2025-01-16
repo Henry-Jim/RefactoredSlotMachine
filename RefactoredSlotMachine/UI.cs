@@ -2,28 +2,47 @@
 {
     internal class UI
     {
-        public static void DisplayMessage(string message)
+        public static void ShowWelcomeMessage()
         {
-            Console.WriteLine(message);
+            Console.WriteLine("Welcome to the Slot Machine Game!");
         }
 
-        public static string ReadInput()
+        public static void ShowWagerPrompt(int maxAmount)
         {
-            return Console.ReadLine();
+            Console.WriteLine($"Enter your wager (1 to {maxAmount}): ");
         }
 
-        public static int GetGridSize(int defaultSize)
+        public static void ShowGridSizePrompt(int defaultSize)
         {
-            DisplayMessage($"Enter an odd number grid size (e.g {defaultSize} for {defaultSize} x {defaultSize}): ");
+            Console.WriteLine($"Enter an odd number grid size (e.g., {defaultSize} for {defaultSize}x{defaultSize}): ");
+        }
+
+        public static void ShowChoicePrompt()
+        {
+            Console.WriteLine("Choose a line to play:");
+            Console.WriteLine($"{Constants.CHOICE_CENTER}: Center Line");
+            Console.WriteLine($"{Constants.CHOICE_ALL_HORIZONTAL}: All Horizontal Lines");
+            Console.WriteLine($"{Constants.CHOICE_ALL_VERTICAL}: All Vertical Lines");
+            Console.WriteLine($"{Constants.CHOICE_DIAGONAL}: Diagonals");
+            Console.WriteLine($"{Constants.CHOICE_ALL_LINES}: All Lines");
+        }
+
+        public static int ReadIntInput(string prompt, int min, int max, bool isOdd = false)
+        {
             while (true)
             {
-                if (int.TryParse(ReadInput(), out int gridSize) && gridSize % 2 != 0 && gridSize >= 3)
+                Console.Write(prompt);
+                if (int.TryParse(Console.ReadLine(), out int value) && value >= min && value <= max && (!isOdd || value % 2 != 0))
                 {
-                    return gridSize;
+                    return value;
                 }
-
-                DisplayMessage("Invalid input. Please enter an odd number greater than or equal to 3");
+                Console.WriteLine($"Invalid input. Please enter a number between {min} and {max}{(isOdd ? ", and it must be odd" : "")}.");
             }
+        }
+
+        public static void ShowResultMessage(string message)
+        {
+            Console.WriteLine(message);
         }
 
         public static void DisplayGrid(int[,] grid)
@@ -40,41 +59,10 @@
 
         public static bool PromptPlayAgain()
         {
-            Console.WriteLine("Do you want to play again? (y/n)");
-            return Console.ReadKey().KeyChar != Constants.PLAY_AGAIN_NO;
-        }
-
-        public static int GetWager(int maxAmount)
-        {
-            DisplayMessage($"Enter you wager up to ${maxAmount}: ");
-            while (true)
-            {
-                if (int.TryParse(ReadInput(), out int wager) && wager > 0 && wager <= maxAmount)
-                {
-                    return wager;
-                }
-
-                DisplayMessage("Invalid input. Please enter a positive number less than or equal to the maximum amount.");
-            }
-        }
-
-        public static int GetChoice()
-        {
-            DisplayMessage("Choose a line to play: ");
-            DisplayMessage($"{Constants.CHOICE_CENTER}: Center Line");
-            DisplayMessage($"{Constants.CHOICE_ALL_HORIZONTAL}: All Horizontal Lines");
-            DisplayMessage($"{Constants.CHOICE_ALL_VERTICAL}: All Vertical Lines");
-            DisplayMessage($"{Constants.CHOICE_DIAGONAL}: Diagonals");
-            DisplayMessage($"{Constants.CHOICE_ALL_LINES}: All Lines");
-
-            while (true)
-            {
-                if (int.TryParse(ReadInput(), out int choice) && choice >= Constants.CHOICE_CENTER && choice <= Constants.CHOICE_ALL_LINES)
-                {
-                    return choice;
-                }
-                DisplayMessage($"Invalid option. Please select an option between {Constants.CHOICE_CENTER} and {Constants.CHOICE_ALL_LINES}");
-            }
+            Console.WriteLine("Do you want to play again? (y/n): ");
+            char input = Console.ReadKey().KeyChar;
+            Console.ReadLine(); 
+            return input != Constants.PLAY_AGAIN_NO;
         }
     }
 }

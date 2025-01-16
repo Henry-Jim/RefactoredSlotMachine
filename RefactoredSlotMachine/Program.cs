@@ -4,22 +4,23 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Slot Machine Game!");
+            UI.ShowWelcomeMessage();
 
             int playMoney = Constants.MONEY_INITIAL;
-
             while (playMoney > 0)
             {
-                UI.DisplayMessage($"You currently have ${playMoney}. How much would you like to wager?");
-                int wager = UI.GetWager(playMoney);
+                UI.ShowResultMessage($"You currently have ${playMoney}.");
+                int wager = UI.ReadIntInput("Enter your wager: ", 1, playMoney);
 
-                int gridSize = UI.GetGridSize(Constants.GRID_SIZE_DEFAULT);
-
-                int choice = UI.GetChoice();
+                UI.ShowGridSizePrompt(Constants.GRID_SIZE_DEFAULT);
+                int gridSize = UI.ReadIntInput("Grid size: ", 3, 99, isOdd: true);
 
                 int[,] grid = Logic.GenerateGrid(gridSize);
-                UI.DisplayMessage("Loading Slot Machine...");
+                UI.ShowResultMessage("Slot Machine Result:");
                 UI.DisplayGrid(grid);
+
+                UI.ShowChoicePrompt();
+                int choice = UI.ReadIntInput("Your choice: ", Constants.CHOICE_CENTER, Constants.CHOICE_ALL_LINES);
 
                 int winnings = Logic.CalculateWinnings(grid, choice);
                 playMoney -= wager;
@@ -27,16 +28,16 @@
                 if (winnings > 0)
                 {
                     playMoney += wager + winnings;
-                    UI.DisplayMessage($"Congrats! You won {winnings}! Your wager is returned.");
+                    UI.ShowResultMessage($"Congrats! You won {winnings}! Your wager is returned.");
                 }
                 else
                 {
-                    UI.DisplayMessage($"Sorry, You lost this round. Your loss for this wager is {wager}.");
+                    UI.ShowResultMessage($"Sorry, you lost this round. Your loss for this wager is {wager}.");
                 }
 
                 if (playMoney <= 0)
                 {
-                    UI.DisplayMessage("Out of Money. Gameover!");
+                    UI.ShowResultMessage("Out of money. Game over!");
                     break;
                 }
 
