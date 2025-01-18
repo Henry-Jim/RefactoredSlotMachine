@@ -27,6 +27,14 @@
             Console.WriteLine($"{Constants.CHOICE_ALL_LINES}: All Lines");
         }
 
+        /// <summary>
+        /// Reads and validates integer input from the user.
+        /// </summary>
+        /// <param name="prompt">The message display to the user.</param>
+        /// <param name="min">The minimum allowed value.</param>
+        /// <param name="max">The maximum allowed value.</param>
+        /// <param name="isOdd">Restricts input to odd number if true.</param>
+        /// <returns>A valid integer input by the user</returns>
         public static int ReadIntInput(string prompt, int min, int max, bool isOdd = false)
         {
             while (true)

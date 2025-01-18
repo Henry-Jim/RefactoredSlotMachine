@@ -5,7 +5,10 @@
         public const char PLAY_AGAIN_NO = 'n';
 
         public const int MONEY_INITIAL = 50;
+        public const int WAGER_MIN = 1;
         public const int GRID_SIZE_DEFAULT = 3;
+        public const int GRID_SIZE_MIN = 3;
+        public const int GRID_SIZE_MAX = 99;
         public const int RANDOM_LIMIT = 5;
         public const int PAYOUT = 1;
 

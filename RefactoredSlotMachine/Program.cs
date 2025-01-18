@@ -10,10 +10,10 @@
             while (playMoney > 0)
             {
                 UI.ShowResultMessage($"You currently have ${playMoney}.");
-                int wager = UI.ReadIntInput("Enter your wager: ", 1, playMoney);
+                int wager = UI.ReadIntInput("Enter your wager: ", Constants.WAGER_MIN, playMoney);
 
                 UI.ShowGridSizePrompt(Constants.GRID_SIZE_DEFAULT);
-                int gridSize = UI.ReadIntInput("Grid size: ", 3, 99, isOdd: true);
+                int gridSize = UI.ReadIntInput("Grid size: ", Constants.GRID_SIZE_MIN, Constants.GRID_SIZE_MAX, isOdd: true);
 
                 int[,] grid = Logic.GenerateGrid(gridSize);
                 UI.ShowResultMessage("Slot Machine Result:");
